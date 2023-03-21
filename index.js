@@ -4,6 +4,7 @@ import {MONGO_URI} from "./config/keys.js";
 const mongo_uri = MONGO_URI.mongo_uri;
 import bodyParser from "body-parser";
 import {users} from "./routes/api/users.js"
+import {User} from "./models/User.js";
 
 const app = express();
 const router = express.Router();
@@ -19,6 +20,13 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.get('/', (req, res) => {
+  const user = new User({
+    first_name: 'Jim',
+    last_name: 'Max',
+    email: 'JimMax@gmail.com',
+    password: '123456'
+  })
+  user.save(); 
   res.send('Ehhhh Buckle This')
 })
 
