@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import {MONGO_URI} from "./config/keys.js";
 const mongo_uri = MONGO_URI.mongo_uri;
-import bodyParser from "body-parser";
+import bodyParser from "body-parser"; // tells our app what sort of requests it should respond to
 import {users} from "./routes/api/users.js"
 import {User} from "./models/User.js";
 
@@ -14,19 +14,20 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-app.use(bodyParser.urlencoded({extended: false}));
+//we told our app to respond to json requests and url encoded is so our app responds from other request ie. postman
+app.use(bodyParser.urlencoded({extended: false})); 
 app.use(bodyParser.json());
 
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  const user = new User({
-    first_name: 'Jim',
-    last_name: 'Max',
-    email: 'JimMax@gmail.com',
-    password: '123456'
-  })
-  user.save(); 
+  // const user = new User({
+  //   first_name: 'Jim',
+  //   last_name: 'Max',
+  //   email: 'JimMax@gmail.com',
+  //   password: '123456'
+  // })
+  // user.save(); 
   res.send('Ehhhh Buckle This')
 })
 
