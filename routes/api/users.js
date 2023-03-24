@@ -2,12 +2,21 @@ import express from "express";
 const router = express.Router(); // router object
 import {User} from '../../models/User.js';
 import bcrypt from 'bcryptjs';
+import {MONGO_URI} from '../../config/keys.js';
+import jwt from "jsonwebtoken";
+import {validateRegistrerInput} from "../../validation/register.js";
+import {validateLoginInput} from "../../validation/login.js";
 
 router.get("/test", (req, res) => {
   res.json({msg: "This is test route"});
 });
 
 router.post('/register', (req, res) => {
+  const { errors, isValid} = validateRegistrerInput(req.body);
+  if(!isValid){
+    return res.status(400).json(errors)
+  }
+
   User.findOne( {email: req.body.email})
   .then(user => { 
     if(user){
@@ -34,6 +43,11 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+  if(!isValid){
+    return res.status(400).json(errors)
+  }
+
   const email = req.body.email;
   const password = req.body.password;
 
@@ -45,7 +59,16 @@ router.post('/login', (req, res) => {
       bcrypt.compare(password, user.password)
         .then(isMatch => {
           if(isMatch){
-            res.json({msg: "Success! "});
+            const payload = {
+              id: user.id,
+              email: user.email,
+            }
+            jwt.sign(
+              payload,
+              MONGO_URI.secretOrKey, 
+              {expiresIn: 3600},
+              (err, token) =>{ 
+                res.json({success: true, token: "Bearer " + token})})
           } else {
             return res.status(400).json({password: "Password is incorrect"});
           }
