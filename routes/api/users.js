@@ -12,10 +12,12 @@ router.get("/test", (req, res) => {
 });
 
 router.post('/register', (req, res) => {
+  debugger
   const { errors, isValid} = validateRegistrerInput(req.body);
   if(!isValid){
     return res.status(400).json(errors)
   }
+  debugger
 
   User.findOne( {email: req.body.email})
   .then(user => { 

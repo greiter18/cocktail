@@ -25,7 +25,7 @@ passportConfig(passport)
 
 app.use(express.json());
 
-app.get('/', (req, res) => {res.send('Ehhhh Buckle This')})
+app.get('/api', (req, res) => {res.send('Test Route')})
 
 app.use("/api/cocktails", cocktails);
 app.use("/api/users", users);
