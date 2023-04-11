@@ -37,7 +37,7 @@ router.post('/register', (req, res) => {
           newUser
             .save()
             .then(user => {
-              const payload = {id: user.id, email: user.email};
+              const payload = {id: user.id, email: user.email, first_name: user.first_name};
 
               jwt.sign(payload, MONGO_URI.secretOrKey, {expiresIn: 3600},(err, token) => {
                 res.json({
@@ -73,6 +73,7 @@ router.post('/login', (req, res) => {
             const payload = {
               id: user.id,
               email: user.email,
+              first_name: user.first_name
             }
             jwt.sign(
               payload,

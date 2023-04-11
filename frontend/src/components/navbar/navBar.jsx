@@ -1,11 +1,9 @@
 import React from 'react';
 import {Link } from 'react-router-dom';
-import { logout } from '../../actions/session_action';
 
+const NavBar = ({logout, loggedIn, store}) => {
 
-const NavBar = ({logout, loggedIn}) => {
-
-  const logoutUser  = e => {
+  const logoutUser  = (e) => {
     e.preventDefault();
     logout();
   }
@@ -14,7 +12,7 @@ const NavBar = ({logout, loggedIn}) => {
     if(loggedIn){
       return (
         <div>
-          <Link to={logoutUser}>LogOut</Link>
+          <a onClick={logoutUser}>Sign Out</a>
         </div>
       )
     } else {
@@ -28,8 +26,12 @@ const NavBar = ({logout, loggedIn}) => {
     }
   }
   return (
-    <div>
+    <div className='navbar_container'>
       <h1>Navbar</h1>
+      <Link to={`/`}>HomePage</Link>
+      {store.session.user?.first_name ? <h1> Hi {store.session.user?.first_name}</h1>  : ''}
+      {console.log(`logged in :${loggedIn}`)}
+      {console.log(`store in :`, store)}
       {getLinks()}
     </div>
   )

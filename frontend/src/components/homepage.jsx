@@ -14,28 +14,30 @@ const Homepage = () => {
   const options = {headers: {common: null}}
 
   const getDrink = () => {
-   // https:www.thecocktaildb.com/api/json/v1/1/filter.php?i=${info}
-    axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${info}`)
-    //axios.get(`https:www.thecocktaildb.com/api/json/v1/1/filter.php?i=${info}`)
+   //https:www.thecocktaildb.com/api/json/v1/1/filter.php?i=${info}
+    //axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${info}`)
+    axios.get(`https:www.thecocktaildb.com/api/json/v1/1/filter.php?i=${info}`)
       .then((res) => {setDrink(res.data.drinks)})
       .catch(err => console.log(`ERRRORRR: ${err}`))
   }
 
    const drinkList = drinks?.map((drink, i) => {
     console.log(`drink: ${drink}`)
-    return <li key = {i}>{drink.strDrink}</li>
+    return (
+
+    <li key = {i}> <img style={{width: 70}} src={drink.strDrinkThumb} alt="drink image" />  {drink.strDrink}</li>)
   }) 
 
-  useEffect(()=>{
-    fetch(`/api`)
-    .then(data => data.text())
-    .then(text => console.log(text))
-  } , []) 
+  // useEffect(()=>{
+  //   fetch(`/api`)
+  //   .then(data => data.text())
+  //   .then(text => console.log(text))
+  // } , []) 
 
   return (
     <div>
-      {console.log(`info:::: ${info}`)}
-      {console.log(`drinks: ${drinks}`)}
+      {/* {console.log(`info:::: ${info}`)}
+      {console.log(`drinks: ${drinks}`)} */}
       <h1>Cocktail App</h1>
       <div>
         <input type="text" onChange={handleChange}/>
