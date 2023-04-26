@@ -16,7 +16,7 @@ const Homepage = () => {
   const getDrink = () => {
    //https:www.thecocktaildb.com/api/json/v1/1/filter.php?i=${info}
     //axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${info}`)
-    axios.get(`https:www.thecocktaildb.com/api/json/v1/1/filter.php?i=${info}`)
+    axios.get(`https:www.thecocktaildb.com/api/json/v1/1/filter.php?i=${info}`, options)
       .then((res) => {setDrink(res.data.drinks)})
       .catch(err => console.log(`ERRRORRR: ${err}`))
   }
@@ -28,11 +28,7 @@ const Homepage = () => {
     <li key = {i}> <img style={{width: 70}} src={drink.strDrinkThumb} alt="drink image" />  {drink.strDrink}</li>)
   }) 
 
-  // useEffect(()=>{
-  //   fetch(`/api`)
-  //   .then(data => data.text())
-  //   .then(text => console.log(text))
-  // } , []) 
+
 
   return (
     <div>
@@ -41,7 +37,9 @@ const Homepage = () => {
       <h1>Cocktail App</h1>
       <div>
         <input type="text" onChange={handleChange}/>
-        <button onClick={() => getDrink()}>Submit</button>
+        <br />
+        <button onClick={() => getDrink()}>Enter Ingredient</button>
+        
       <ul>{drinkList}</ul>  
       </div>
     </div>

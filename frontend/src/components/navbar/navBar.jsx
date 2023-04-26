@@ -31,7 +31,8 @@ const NavBar = ({logout, loggedIn, store}) => {
       <Link to={`/`}>HomePage</Link>
       {store.session.user?.first_name ? <h1> Hi {store.session.user?.first_name}</h1>  : ''}
       {console.log(`logged in :${loggedIn}`)}
-      {console.log(`store in :`, store)}
+      {console.log(`store in :`, store)} 
+      {/* {console.log(`store in : ${store}`)} - not working  */}
       {getLinks()}
     </div>
   )

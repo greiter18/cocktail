@@ -1,5 +1,5 @@
-import './App.css';
-import './index.css'
+import './assets/App.css';
+import './assets/index.css'
 import React from 'react';
 import {AuthRoute ,ProtectedRoute}  from './util/route_util';
 import {Switch, Route} from 'react-router-dom'
